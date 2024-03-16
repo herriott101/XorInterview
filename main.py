@@ -4,6 +4,7 @@ import certifi
 import tkinter as tk
 from tkinter import ttk, messagebox
 from tkinter.filedialog import asksaveasfile
+from pandastable import Table
 
 
 def main_menu():
@@ -60,18 +61,13 @@ def import_menu():
 
 
 def view_data():
-    clear_gui()
-
-    tk.Grid.rowconfigure(root, 0, weight=1)
-    tk.Grid.columnconfigure(root, 0, weight=1)
+    data_window = tk.Toplevel(root)
+    data_window.title("Data")
 
     global df
-    df_text = df.to_string(index=False)
 
-    ttk.Label(root, text=df_text, anchor="center").grid(column=0, row=0, sticky="NSEW")
-    ttk.Button(root, text="Main Menu", command=main_menu, padding=2).grid(column=0, row=6, columnspan=2, sticky="NSEW")
-
-    root.mainloop()
+    table = Table(data_window, dataframe=df, showtoolbar=True, showstatusbar=True)
+    table.show()
 
 
 def import_database():
