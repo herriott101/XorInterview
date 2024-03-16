@@ -7,4 +7,4 @@ The challenge was: "We are using a database on a project for a scientific instru
 
 I have chosen to use Python as I do not know (at this time) C# and Python has several options for data analysis with lots of different libraries which may be useful.
 
-The code can be run as a script or you can run the .exe file found in the dist folder.
+The code can be run as a script (see requirements.txt for required packages) or you can run the .exe file found in the dist folder.
