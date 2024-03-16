@@ -18,7 +18,7 @@ def main_menu():
 
     ttk.Button(root, text="Import data", command=import_menu, padding=2).grid(column=0, row=1, sticky="NSEW")
     ttk.Button(root, text="Export data", command=export_to_csv, padding=2).grid(column=0, row=2, sticky="NSEW")
-    ttk.Button(root, text="Load data", command=view_data, padding=2).grid(column=1, row=1, sticky="NSEW")
+    ttk.Button(root, text="View data", command=view_data, padding=2).grid(column=1, row=1, sticky="NSEW")
 
     root.mainloop()
 
@@ -60,7 +60,18 @@ def import_menu():
 
 
 def view_data():
-    pass
+    clear_gui()
+
+    tk.Grid.rowconfigure(root, 0, weight=1)
+    tk.Grid.columnconfigure(root, 0, weight=1)
+
+    global df
+    df_text = df.to_string(index=False)
+
+    ttk.Label(root, text=df_text, anchor="center").grid(column=0, row=0, sticky="NSEW")
+    ttk.Button(root, text="Main Menu", command=main_menu, padding=2).grid(column=0, row=6, columnspan=2, sticky="NSEW")
+
+    root.mainloop()
 
 
 def import_database():
