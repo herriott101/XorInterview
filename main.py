@@ -19,7 +19,8 @@ def main_menu():
     ttk.Label(root, text="Please select an option:", anchor="center").grid(column=0, row=0, columnspan=2, sticky="NSEW")
 
     ttk.Button(root, text="Import data", command=import_menu, padding=2).grid(column=0, row=1, sticky="NSEW")
-    ttk.Button(root, text="Export data", command=export_to_csv, padding=2).grid(column=0, row=2, sticky="NSEW")
+    ttk.Button(root, text="Export data", command=lambda: export_to_csv(df), padding=2)\
+        .grid(column=0, row=2,sticky="NSEW")
     ttk.Button(root, text="View data", command=view_data, padding=2).grid(column=1, row=1, sticky="NSEW")
 
     root.mainloop()
@@ -55,7 +56,7 @@ def import_menu():
     ttk.Label(root, text="Please enter SQL query:", padding=2).grid(column=0, row=4, sticky="NSEW")
     ttk.Entry(root, textvariable=query_in).grid(column=1, row=4, sticky="NSEW", padx=2)
 
-    ttk.Button(root, text="Import data", command=import_database, padding=2)\
+    ttk.Button(root, text="Import data", command=import_database, padding=2) \
         .grid(column=0, row=5, columnspan=2, sticky="NSEW")
 
     ttk.Button(root, text="Main Menu", command=main_menu, padding=2).grid(column=0, row=6, columnspan=2, sticky="NSEW")
@@ -103,15 +104,14 @@ def import_database():
     main_menu()
 
 
-def export_to_csv():
+def export_to_csv(df_in):
     """Exports the database to a CSV (or other) file"""
     files = [('CSV', '*.csv'), ('All Files', '*.*'), ('Text Document', '*.txt')]
     file = asksaveasfile(mode="w", filetypes=files, defaultextension=files)
     if file is None:
         return
 
-    global df
-    df.to_csv(file, index=False)
+    df_in.to_csv(file, index=False)
 
 
 if __name__ == "__main__":
