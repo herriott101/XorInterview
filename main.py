@@ -71,7 +71,8 @@ def view_data():
 
 
 def import_database():
-    # Need to specify the root certificate in non-POSIX-compliant systems
+    # Need to specify the root certificate in non-POSIX-compliant systems - code snippet from
+    # https://docs.influxdata.com/influxdb/clustered/reference/client-libraries/v3/python/
     fh = open(certifi.where(), "r")
     cert = fh.read()
     fh.close()
