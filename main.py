@@ -104,7 +104,7 @@ def export_to_csv():
         return
 
     global df
-    df.to_csv(file)
+    df.to_csv(file, index=False)
 
 
 df = pd.DataFrame()
