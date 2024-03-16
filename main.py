@@ -2,8 +2,8 @@ import pandas as pd
 from influxdb_client_3 import InfluxDBClient3, flight_client_options
 import certifi
 import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
+from tkinter.filedialog import asksaveasfile
 
 
 def main_menu():
@@ -17,7 +17,7 @@ def main_menu():
     ttk.Label(root, text="Please select an option:", anchor="center").grid(column=0, row=0, columnspan=2, sticky="NSEW")
 
     ttk.Button(root, text="Import data", command=import_menu, padding=2).grid(column=0, row=1, sticky="NSEW")
-    ttk.Button(root, text="Export data", command=export_menu, padding=2).grid(column=0, row=2, sticky="NSEW")
+    ttk.Button(root, text="Export data", command=export_to_csv, padding=2).grid(column=0, row=2, sticky="NSEW")
     ttk.Button(root, text="Load data", command=view_data, padding=2).grid(column=1, row=1, sticky="NSEW")
 
     root.mainloop()
@@ -59,10 +59,6 @@ def import_menu():
     root.mainloop()
 
 
-def export_menu():
-    pass
-
-
 def view_data():
     pass
 
@@ -79,13 +75,6 @@ def import_database():
     query = query_in.get()
     database = database_in.get()
 
-    # Reset variables so that they can be used again if needed
-    token_in.set("")
-    org_in.set("")
-    host_in.set("")
-    query_in.set("")
-    database_in.set("")
-
     try:
         client = InfluxDBClient3(host=host, token=token, org=org,
                                  flight_client_options=flight_client_options(tls_root_certs=cert))
@@ -101,12 +90,11 @@ def import_database():
     main_menu()
 
 
-def export_to_csv(output_file):
-    file = output_file
-
-    # Add .csv to end of filename if it does not already exist.
-    if file[-4:].lower() != ".csv":
-        file += ".csv"
+def export_to_csv():
+    files = [('CSV', '*.csv'), ('All Files', '*.*'), ('Text Document', '*.txt')]
+    file = asksaveasfile(mode="w", filetypes=files, defaultextension=files)
+    if file is None:
+        return
 
     global df
     df.to_csv(file)
