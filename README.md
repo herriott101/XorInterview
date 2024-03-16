@@ -1,4 +1,3 @@
-# Xor Interview
 Interview task for Xor.
 
 This task was set for an interview with Xor in Bristol.
