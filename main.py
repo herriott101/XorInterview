@@ -8,6 +8,7 @@ from pandastable import Table
 
 
 def main_menu():
+    """Creates a main menu GUI"""
     clear_gui()
 
     for row_num in range(3):
@@ -25,11 +26,13 @@ def main_menu():
 
 
 def clear_gui():
+    """Clears the GUI so a new menu can be used"""
     for ele in root.winfo_children():
         ele.destroy()
 
 
 def import_menu():
+    """Menu for importing data from the database"""
     clear_gui()
 
     for row_num in range(7):
@@ -61,6 +64,7 @@ def import_menu():
 
 
 def view_data():
+    """Uses pandastable to view, edit, and graph the imported data"""
     data_window = tk.Toplevel(root)
     data_window.title("Data")
 
@@ -71,6 +75,7 @@ def view_data():
 
 
 def import_database():
+    """Imports the database from InfluxDB"""
     # Need to specify the root certificate in non-POSIX-compliant systems - code snippet from
     # https://docs.influxdata.com/influxdb/clustered/reference/client-libraries/v3/python/
     fh = open(certifi.where(), "r")
@@ -99,6 +104,7 @@ def import_database():
 
 
 def export_to_csv():
+    """Exports the database to a CSV (or other) file"""
     files = [('CSV', '*.csv'), ('All Files', '*.*'), ('Text Document', '*.txt')]
     file = asksaveasfile(mode="w", filetypes=files, defaultextension=files)
     if file is None:
@@ -108,16 +114,19 @@ def export_to_csv():
     df.to_csv(file, index=False)
 
 
-df = pd.DataFrame()
+if __name__ == "__main__":
+    """Main function, sets up variables and initial GUI"""
 
-root = tk.Tk()
-root.title("InfluxDB Tool")
+    df = pd.DataFrame()
 
-# Initialise variables used within menu
-token_in = tk.StringVar("")
-org_in = tk.StringVar("")
-host_in = tk.StringVar("")
-query_in = tk.StringVar("")
-database_in = tk.StringVar("")
+    root = tk.Tk()
+    root.title("InfluxDB Tool")
 
-main_menu()
+    # Initialise variables used within menu
+    token_in = tk.StringVar("")
+    org_in = tk.StringVar("")
+    host_in = tk.StringVar("")
+    query_in = tk.StringVar("")
+    database_in = tk.StringVar("")
+
+    main_menu()
