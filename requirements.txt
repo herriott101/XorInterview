@@ -1,0 +1,4 @@
+certifi==2024.2.2
+influxdb3_python==0.3.6
+pandas==2.2.1
+pandastable==0.13.1
